@@ -1,0 +1,60 @@
+/* Põhiline stiil */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffe6f0; /* Õrn roosa taust */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ff66a3; /* Tugevam roosa pealkirjal */
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.teema {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.teema h2 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+/* Teemade spetsiifilised värvid */
+.koerad h2 {
+    color: #ffcc00; /* Kollane koerte teema jaoks */
+}
+
+.draakonid h2 {
+    color: #007bff; /* Sinine draakonite teema jaoks */
+}
+
+.printsessid h2 {
+    color: #ff66a3; /* Roosa printsesside teema jaoks */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 0.9rem;
+}
