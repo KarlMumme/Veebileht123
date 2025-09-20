@@ -1,37 +1,182 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="et">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koerad, Draakonid ja Printsessi lood</title>
-    <link rel="stylesheet" href="stiil.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lahe Hotell — SPA & Ajalugu</title>
+  <style>
+    :root{
+      --bg: #ffd6e8; /* peamine roosa */
+      --accent: #4b006e; /* tumelilla aktsent */
+      --card: #ffffffcc;
+      --pool: #6fe07a; /* roheline vee värv SPA-s */
+      --glass: rgba(255,255,255,0.18);
+      --muted: #3b2a4a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    header{
+      padding:28px 20px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      border-bottom:3px solid rgba(75,0,110,0.08);
+      background:linear-gradient(180deg, rgba(255,255,255,0.25), transparent);
+    }
+    .logo{
+      width:72px;height:72px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent), #8b2fa3);
+      color:white;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(75,0,110,0.18);
+    }
+    h1{margin:0;font-size:24px;color:var(--accent)}
+    p.lead{margin:6px 0 0;color:#5b3f64}
+
+    main{padding:24px;display:grid;grid-template-columns:360px 1fr;gap:24px;align-items:start}
+
+    /* Sidebar: hotellakompleks illustratsioon  */
+    .hotel-card{
+      background:var(--card);border-radius:14px;padding:18px;box-shadow:0 8px 20px rgba(75,0,110,0.08);
+    }
+    .building{
+      position:relative;width:300px;height:560px;margin:18px auto 6px; background:linear-gradient(180deg,#fff 0%, #ffe2f4 100%);border-radius:12px;padding:18px;
+      display:flex;flex-direction:column;gap:8px;justify-content:flex-start;align-items:center;
+      box-shadow:inset 0 -40px 70px rgba(75,0,110,0.02);
+    }
+    .floor{width:100%;height:64px;border-radius:8px;background:linear-gradient(180deg,#fff 0%, rgba(255,255,255,0.6) 100%);display:flex;align-items:center;padding:10px;gap:8px;}
+    .floor:nth-child(odd){background:linear-gradient(180deg,#fff 0%, #fff0ff 100%)}
+    .floor .windows{display:flex;gap:8px;margin-left:auto}
+    .window{width:48px;height:38px;border-radius:6px;background:var(--glass);border:2px solid rgba(75,0,110,0.06)}
+    .floor-label{font-weight:600;color:var(--accent);margin-right:auto}
+
+    /* SPA osa */
+    .spa{
+      margin-top:18px;background:linear-gradient(180deg,#fff0, #ffffffaa);padding:12px;border-radius:10px;border:2px dashed rgba(75,0,110,0.06);
+    }
+    .pool{
+      height:110px;border-radius:10px;overflow:hidden;border:6px solid rgba(255,255,255,0.25);
+      background: linear-gradient(180deg, var(--pool), #3fb85a);
+      box-shadow: inset 0 -10px 40px rgba(0,0,0,0.08);
+      position:relative;
+    }
+    .pool:before{content:"";position:absolute;left:0;top:0;right:0;height:34%;background:linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0));opacity:0.55}
+
+    /* Content area */
+    .content{
+      background:var(--card);padding:22px;border-radius:14px;box-shadow:0 8px 20px rgba(75,0,110,0.06);
+    }
+    .section{margin-bottom:20px}
+    .section h2{margin:0 0 10px;color:var(--accent)}
+
+    /* Arsenal history text box */
+    .history{
+      background:linear-gradient(180deg, #fff, #fff8ff);padding:14px;border-radius:10px;border-left:6px solid var(--accent);
+      line-height:1.6;color:#3b2a4a
+    }
+
+    /* Flying car animation */
+    .sky{position:fixed;left:0;right:0;top:6px;height:0;pointer-events:none}
+    .car{
+      position:absolute;top:0;left:-220px;width:180px;height:60px;border-radius:12px;display:flex;align-items:center;padding:10px;gap:8px;
+      transform:translateZ(0);
+      background:linear-gradient(90deg,#ff9ad3,#ff6fb8);box-shadow:0 12px 30px rgba(75,0,110,0.18);
+      animation:fly 14s linear infinite;
+    }
+    .car .wheel{width:22px;height:22px;border-radius:50%;background:var(--accent);box-shadow:inset 0 -6px 8px rgba(0,0,0,0.2)}
+    .car .body{flex:1;height:36px;border-radius:8px;background:linear-gradient(90deg,#ffd6f0, #fff)}
+
+    @keyframes fly{
+      0%{transform:translateX(-240px) translateY(0) rotate(-6deg)}
+      20%{transform:translateX(20vw) translateY(-6px) rotate(-2deg)}
+      40%{transform:translateX(45vw) translateY(-12px) rotate(2deg)}
+      60%{transform:translateX(70vw) translateY(-8px) rotate(-2deg)}
+      80%{transform:translateX(100vw) translateY(-4px) rotate(3deg)}
+      100%{transform:translateX(120vw) translateY(0) rotate(6deg)}
+    }
+
+    /* Footer */
+    footer{padding:22px;text-align:center;color:#4a2f54}
+
+    /* Responsive */
+    @media (max-width:900px){
+      main{grid-template-columns:1fr;}
+      .building{width:100%;height:420px}
+    }
+  </style>
 </head>
 <body>
+  <div class="sky">
+    <div class="car" aria-hidden="true">
+      <div class="wheel"></div>
+      <div class="body"></div>
+      <div class="wheel"></div>
+    </div>
+  </div>
 
-    <header>
-        <h1>Imeline maailm: Koerad, Draakonid ja Printsessi lood</h1>
-    </header>
+  <header>
+    <div class="logo">LAHE</div>
+    <div>
+      <h1>Lahe Hotell — SPA & Ajalugu</h1>
+      <p class="lead">7-korruseline hotell, roosa atmosfäär ja luksuslik roheline SPA-vee elamus.</p>
+    </div>
+  </header>
 
-    <main>
-        <section class="teema koerad">
-            <h2>🐶 Koerad: meie karvased sõbrad</h2>
-            <p>Koerad on inimeste parimad sõbrad, kes toovad meie ellu rõõmu ja tingimusteta armastust. Nad on lojaalsed, mänguhimulised ja alati valmis kallistusteks. Alates väikestest chihuahuadest kuni suurte bernhardiinideni – iga koer on eriline ja ainulaadne.</p>
-        </section>
+  <main>
+    <aside class="hotel-card">
+      <strong>Kogu hoone</strong>
+      <div class="building" role="img" aria-label="Lahe Hotelli 7 korrust">
+        <!-- 7 korrust -->
+        <div class="floor"><span class="floor-label">7. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">6. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">5. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">4. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">3. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">2. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+        <div class="floor"><span class="floor-label">1. korrus</span><div class="windows"><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+      </div>
 
-        <section class="teema draakonid">
-            <h2>🐲 Draakonid: müstilised olendid</h2>
-            <p>Draakonid on müütilised ja võimsad olendid, keda leidub paljude rahvaste legendides. Nendele omistatakse tihti suuri teadmisi ja maagilisi võimeid. Mõned on head ja targad, teised aga kurjad ja ahned aarete järele.</p>
-        </section>
+      <div class="spa">
+        <strong>SPA</strong>
+        <p style="margin:8px 0 10px;color:#5b3f64">Meie SPA-s on vee värv eriliselt roheline — värskendav ja loodusega kooskõlas.</p>
+        <div class="pool" aria-hidden="true"></div>
+      </div>
+    </aside>
 
-        <section class="teema printsessid">
-            <h2>👸 Printsessi lood</h2>
-            <p>Printsessi lood räägivad julgetest ja heasüdamlikest naistest, kes astuvad vastu väljakutsetele, et aidata oma rahvast ja leida tõeline armastus. Need lood õpetavad, et printsessiks olemine ei tähenda ainult kauneid kleite, vaid ka julgust ja headust.</p>
-        </section>
-    </main>
+    <section class="content">
+      <article class="section">
+        <h2>Tere tulemast Lahe Hotelli</h2>
+        <p>Lahe Hotell on hubane ning kaasaegne SPA-hotell, mille peamine visuaalne identiteet on pehme roosa ja tumelillad aktsendid. Hotellis on 7 korrust ning iga korrus on kujundatud mugavuse ning rahu tagamiseks. SPA-vee toon on värvitud eriliselt roheliseks, et anda linnakärast puhkust nautivale külalisele naturaalne ja värskendav tunne.</p>
+      </article>
 
-    <footer>
-        <p>&copy; 2025 Loodud armastusega</p>
-    </footer>
+      <article class="section">
+        <h2>Arsenali jalgpalliklubi ajalugu</h2>
+        <div class="history">
+          <p><strong>Arsenal Football Club</strong> on Inglismaa üks ajaloolisemaid ja edukamaid jalgpalliklubisid, asutatud 1886. aastal Londonis. Algusaastatel tegutses klubi kui Dial Square, hiljem Royal Arsenal, kuni lõpuks võeti kasutusele nimi Arsenal. Klubi on tuntud nii mitmete liigavõitude kui ka kuulsate mängijate ja treenerite poolest. 1930. ja 1940. aastatel kujunes Arsenal üheks tugevamaks jõuks Inglismaa jalgpallis ning 1990. ja 2000. aastatel tõi klubi maailmakuulsuse nii edukate liigahooaegade kui ka ikooniliste mängustiilide kaudu.</p>
+          <p>Arsenalil on mitmeid staadione ajaloo jooksul ning klubi on jätnud tugeva pärandi inglise jalgpalli taktika ja noortetöö arendamisse. Tänaseni on Arsenal tuntud oma pühendunud fännibaasi ja tugeva seotuse Londoni põhjaosa kogukonnaga.</p>
+        </div>
+      </article>
 
+      <article class="section">
+        <h2>Lahe teenused</h2>
+        <ul>
+          <li>7-korruselised sviidid ja toad</li>
+          <li>Luksuslik roheline SPA ja sisebassein</li>
+          <li>Kohvik ja lounge tumelillade aktsentidega</li>
+          <li>Ürituste- ja konverentsiruumid</li>
+        </ul>
+      </article>
+
+      <footer>
+        <small>© Lahe Hotell — Kujundus: sinu SPA-hotelli demo. Taustavärv: roosa; aktsendid: tumelillad.</small>
+      </footer>
+    </section>
+  </main>
 </body>
 </html>
